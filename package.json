@@ -8,13 +8,11 @@
     "concurrently": "^5.3.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "google-map-react": "^2.1.9",
     "helmet": "^3.23.3",
     "path": "^0.12.7",
-    "google-map-react": "^2.1.9",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "4.0.1",
-    "web-vitals": "^0.2.4"
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {},
   "scripts": {
@@ -28,15 +26,7 @@
     "client": "cd client && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mujibsardar/react_express_heroku_example.git"
-  },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mujibsardar/react_express_heroku_example/issues"
-  },
-  "homepage": "https://github.com/mujibsardar/react_express_heroku_example#readme"
+  "license": "ISC"
 }
