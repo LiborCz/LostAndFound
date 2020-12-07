@@ -18,7 +18,8 @@
   "scripts": {
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "run-p start:** server",
+    "startx": "run-p start:** server",
+    "start": "node server.js",
     "start:app": "cd client && npm run start",
     "production": "run-p production:** server",
     "production:build": "cd client && npm run build",
