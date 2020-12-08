@@ -20,7 +20,7 @@ export const Map = ({ eventData, center, zoom }) => {
 
       {console.log("Ahoj") }
 
-      {/* <GoogleMapReact bootstrapURLKeys={{ 
+      <GoogleMapReact bootstrapURLKeys={{ 
           key:process.env.REACT_APP_GCP_MAPS_API }}
           defaultCenter={center}
           defaultZoom={zoom}
@@ -28,7 +28,7 @@ export const Map = ({ eventData, center, zoom }) => {
 
           {locationMarkers}
 
-      </GoogleMapReact> */}
+      </GoogleMapReact>
 
       {locationInfo && <LocationInfoBox info={locationInfo} />}
     </div>

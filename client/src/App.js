@@ -41,7 +41,7 @@ function App() {
   
   return (
     <div>
-      {/* { loading ? <Loader /> : <Map eventData={eventData} /> } */}
+      { loading ? <Loader /> : <Map eventData={eventData} /> }
 
 
       <form onSubmit={createPerson}>
