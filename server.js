@@ -7,9 +7,8 @@ const cors = require('cors')  // allows/disallows cross-site communication
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 
-// --> Add this
 // ** MIDDLEWARE ** //
-const whitelist = ['http://localhost:3000/', 'http://localhost:8080/', 'https://liborcz-lostandfound.herokuapp.com']
+const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://liborcz-lostandfound.herokuapp.com']
 const corsOptions = {
   origin: function (origin, callback) {
     console.log("** Origin of request " + origin)
@@ -31,9 +30,7 @@ app.get('/api/', (req, res) => {
 });
 
 app.post('/api/', (req, res) => {
-  res.send(
-    `Person created: ${req.body.person.name}`,
-  );
+  res.send( `Person created: ${req.body.person.name}`);
 });
 
 

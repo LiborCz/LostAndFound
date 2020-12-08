@@ -1,7 +1,7 @@
 {
-  "name": "react_express_heroku",
+  "name": "lost-and-found",
   "version": "1.0.0",
-  "description": "A simple React Express (Node) app that I deployed to Heroku and used in my YouTube video \"Deploying React Express App to Heroku Made Super Simple!\"",
+  "description": "MERN App using Google Maps - deployed to Heroku",
   "main": "server.js",
   "dependencies": {
     "body-parse": "^0.1.0",
@@ -17,15 +17,17 @@
   "devDependencies": {},
   "scripts": {
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "startx": "run-p start:** server",
     "start": "node server.js",
+  },
+  "scripts-other": {
+    "start": "run-p start:** server",
     "start:app": "cd client && npm run start",
     "production": "run-p production:** server",
     "production:build": "cd client && npm run build",
     "server": "nodemon server/server.js",
     "client": "cd client && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",

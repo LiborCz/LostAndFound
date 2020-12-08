@@ -31,31 +31,17 @@ function App() {
 
   var createPerson = (event) => {
     event.preventDefault();
-    axios.post( '/api',
-      {
-        person: {
-          name: "Hey",
-          message: "You"
-        }
-      }
-      ).then(
-      (response) => {
-        console.log(response)
-      }
-    )
+    axios.post( '/api', { person: { name: "Hey", message: "You" }})
+    .then( response => { console.log(response) })
   }
 
   var loadPeople = () => {
-    axios.get('/api').then(
-      (response) => {
-        console.log(response.people)
-      }
-    )
+    axios.get('/api').then( response => console.log(response.people) )
   }
   
   return (
     <div>
-      { loading ? <Loader /> : <Map eventData={eventData} /> }
+      {/* { loading ? <Loader /> : <Map eventData={eventData} /> } */}
 
 
       <form onSubmit={createPerson}>
