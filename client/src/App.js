@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
+
 import Map from './components/Map';
 import Loader from './components/Loader'
 
 function App() {
   const[eventData, setEventData]  = useState([]);
   const[loading, setLoading]  = useState(false);
+
+  const[name, setName] = useState("");
+  const[message, setMessage] = useState("");
 
   useEffect(() =>{
     const fetchEvents = async () => {
@@ -22,11 +27,44 @@ function App() {
 
     fetchEvents()
 
-  }, [])
+  }, []) 
+
+  var createPerson = (event) => {
+    event.preventDefault();
+    axios.post(
+      '/api',
+      {
+        person: {
+          name: name,
+          message: message
+        }
+      }
+      ).then(
+      (response) => {
+        console.log(response)
+      }
+    )
+  }
+
+  var loadPeople = () => {
+    axios.get('/api').then(
+      (response) => {
+        console.log(response.people)
+      }
+    )
+  }
   
   return (
     <div>
       { loading ? <Loader /> : <Map eventData={eventData} /> }
+
+
+      <form onSubmit={createPerson}>
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name"/>
+        <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Message"/>
+          <input type="submit" value="Submit"/>
+      </form>
+
     </div>
   );
 }
