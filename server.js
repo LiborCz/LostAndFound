@@ -22,30 +22,29 @@ const corsOptions = {
     }
   }
 }
+
 app.use(helmet())
-// --> Add this
 app.use(cors(corsOptions))
 
 app.get('/api/', (req, res) => {
   res.send({ people: 'You want to see people I assume' });
 });
+
 app.post('/api/', (req, res) => {
   res.send(
     `Person created: ${req.body.person.name}`,
   );
 });
 
-// --> Add this
+
 if (process.env.NODE_ENV === 'production') {
-  // Serve any static files
+
   app.use(express.static(path.join(__dirname, 'client/build')));
-// Handle React routing, return all requests to React app
+
   app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
 
 const PORT = process.env.PORT || 8080
-app.listen(PORT, (req, res) => {
-    console.log(`server listening on port: ${PORT}`)
-  });
+app.listen(PORT, (req, res) => { console.log(`server listening on port: ${PORT}`) });

@@ -31,12 +31,11 @@ function App() {
 
   var createPerson = (event) => {
     event.preventDefault();
-    axios.post(
-      '/api',
+    axios.post( '/api',
       {
         person: {
-          name: name,
-          message: message
+          name: "Hey",
+          message: "You"
         }
       }
       ).then(
