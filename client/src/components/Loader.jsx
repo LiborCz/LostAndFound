@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { wait } from '@testing-library/react';
 import waiter from '../img/waiter.gif';
 
 const Loader = () => {

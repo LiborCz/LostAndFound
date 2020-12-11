@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import axios from 'axios';
 
 import Map from './components/Map';
-import Loader from './components/Loader'
 
 function App() {
+  return <Map />
+}
+
+function X() {
   const[eventData, setEventData]  = useState([]);
   const[loading, setLoading]  = useState(false);
 
@@ -41,7 +44,7 @@ function App() {
   
   return (
     <div>
-      { loading ? <Loader /> : <Map eventData={eventData} /> }
+      {/* { loading ? <Loader /> : <Map eventData={eventData} /> } */}
 
 
       <form onSubmit={createPerson}>

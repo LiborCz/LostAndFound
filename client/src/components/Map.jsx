@@ -1,43 +1,72 @@
-import React, {useState} from 'react'
+import React, {useState, useCallback, useRef} from 'react'
 
-import GoogleMapReact from 'google-map-react'
-import LocationMarker from './LocationMarker'
-import LocationInfoBox from './LocationInfoBox'
+import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
+import { formatRelative } from "date-fns";
 
-export const Map = ({ eventData, center, zoom }) => {
+// import LocationMarker from './LocationMarker'
+// import LocationInfoBox from './LocationInfoBox'
+import Loader from './Loader'
+import Search, {Locate} from './Search'
 
-  const [locationInfo, setLocationInfo] = useState(null);
+import mapDefaults from './mapDefaults';
 
-  const fires = eventData.filter(ev => ev.categories[0].id===8);
-  const locationMarkers = fires.map(ev => <LocationMarker 
-    lat={ev.geometries[0].coordinates[1]}
-    lng={ev.geometries[0].coordinates[0]} 
-    onClick={() => setLocationInfo(ev)}
-    />)
+export const Map = () => {
 
-  return (
-    <div className="map">
+  const libraries = ["places"];
 
-      {console.log("Ahoj") }
+  const [markers, setMarkers]  = useState([]);
+  const [markerSel, setMarkerSel] = useState(null);
 
-      <GoogleMapReact bootstrapURLKeys={{ 
-          key:process.env.REACT_APP_GCP_MAPS_API }}
-          defaultCenter={center}
-          defaultZoom={zoom}
-          >
+  const mapRef = useRef();
+  const onMapLoad = useCallback(map => (mapRef.current = map), []);
 
-          {locationMarkers}
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GCP_MAPS_API,
+    libraries
+  });
 
-      </GoogleMapReact>
+  const onMapClick = useCallback((e) => setMarkers(current => [...current, {
+    lat: e.latLng.lat(),
+    lng: e.latLng.lng(),
+    time: new Date()
+  }]), []);
 
-      {locationInfo && <LocationInfoBox info={locationInfo} />}
-    </div>
-  )
-}
+  const panTo = React.useCallback(({lat, lng}) => {
+    mapRef.current.panTo({lat, lng});
+    mapRef.current.setZoom(14);
+  }, []);  
 
-Map.defaultProps = {
-  center: {lat: 42.3265, lng: -122.8756},
-  zoom: 6
+  if(loadError) return "Load Error";
+  if(!isLoaded) return <Loader />;
+
+  return <div>
+    <h1 className="title">Title</h1>
+    <Search panTo={panTo} />
+    <Locate panTo={panTo} />
+
+    <GoogleMap
+      mapContainerStyle={mapDefaults.containerStyle} 
+      zoom={8} center={mapDefaults.center}
+      options={mapDefaults.options}
+      onClick={onMapClick}
+      onLoad={onMapLoad}
+      >
+        {markers.map(marker => 
+        <Marker 
+          key={marker.time.toISOString()} 
+          position = {{lat:marker.lat, lng:marker.lng}}
+          onClick = {() => setMarkerSel(marker)}
+          />)}
+        
+        {markerSel ? <InfoWindow 
+          position={{lat:markerSel.lat, lng:markerSel.lng}}
+          onCloseClick={() => setMarkerSel(null)}><div>
+            <h2>Marker placed</h2>
+            <p>Placed {formatRelative(markerSel.time, new Date())}</p>
+          </div>
+          </InfoWindow> : null}
+      </GoogleMap>
+  </div>
 }
 
 export default Map;
