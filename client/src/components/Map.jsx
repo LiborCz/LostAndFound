@@ -3,10 +3,10 @@ import React, {useState, useCallback, useRef} from 'react'
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import { formatRelative } from "date-fns";
 
-// import LocationMarker from './LocationMarker'
-// import LocationInfoBox from './LocationInfoBox'
 import Loader from './Loader'
 import Search, {Locate} from './Search'
+// import LocationMarker from './LocationMarker'
+// import LocationInfoBox from './LocationInfoBox'
 
 import mapDefaults from './mapDefaults';
 
