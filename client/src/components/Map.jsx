@@ -10,9 +10,9 @@ import Search, {Locate} from './Search'
 
 import mapDefaults from './mapDefaults';
 
-export const Map = () => {
+const libraries = ["places"];
 
-  const libraries = ["places"];
+export const Map = () => {
 
   const [markers, setMarkers]  = useState([]);
   const [markerSel, setMarkerSel] = useState(null);
